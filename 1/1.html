@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function getUsers(names) {
+            let jobs = []
+
+            for (let name of names) {
+                let job = await fetch(`https://api.github.com/users/${name}`)
+                    .then(res => {
+                        if (res.status != 200) {
+                            return null
+                        } else {
+                            return res.json()
+                        }
+                    })
+                    .then(data => jobs.push(data))
+            }
+
+            return jobs
+        }
+
+        getUsers(['ivan', 'mike'])
+    </script>
+</body>
+
+</html>
